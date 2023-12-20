@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            background-color: rgb(236, 229, 220);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- ======== newPost Modal =========== -->
+
+    <div class="modal fade" id="newPost-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Creat aNew Post</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="Title" class="col-form-label">Title</label>
+                            <input type="text" class="form-control" id="Title" value="Mego">
+                        </div>
+                        <div class="mb-3">
+                            <textarea id="postContent" cols="60" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="col-form-label">image</label>
+                            <input type="file" class="form-control" id="Image"></input>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                    <button type="button" class="btn btn-primary" onclick="createNewPost()">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ======== //newPost Modal //=========== -->
+
+    <!-- ======== LogIn Modal =========== -->
+
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="username" class="col-form-label">Username</label>
+                            <input type="text" class="form-control" id="username" value="Mego">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="col-form-label">Password</label>
+                            <input type="password" class="form-control" id="password" value="1234567"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                    <button type="button" class="btn btn-primary" onclick="Login()" id="log-btn">login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ======== //LogIn Modal //=========== -->
+
+
+
+    <!-- ======== Register Modal =========== -->
+
+    <div class="modal fade" id="Register-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Register New User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="register-name" class="col-form-label">Name</label>
+                            <input type="text" class="form-control" id="register-name" value="Mego">
+                        </div>
+                        <div class="mb-3">
+                            <label for="register-username" class="col-form-label">UserName</label>
+                            <input type="text" class="form-control" id="register-username" value="Mego">
+                        </div>
+                        <div class="mb-3">
+                            <label for="register-email" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="register-email" value="Mego">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="col-form-label">Password</label>
+                            <input type="password" class="form-control" id="password" value="1234567"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="col-form-label">image</label>
+                            <input type="file" class="form-control" id="register-image"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                    <button type="button" class="btn btn-primary" id="register-btn"
+                        onclick="registerNewUser()">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ======== //Register Modal //=========== -->
+
+    <!--======================= Alert ======================  -->
+    <div id="alert" class="show fade"
+        style="position: fixed; z-index: 999999; width: 40%;  bottom: 0; right: 0;     margin-right: 14px;">
+    </div>
+    <!--======================= Alert ======================  -->
+
+    <!-- Nav Bar  -->
+    <div class="container pt-2">
+        <div class="d-flex justify-content-center">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 mb-5 bg-body-tertiary rounded col-10">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Mo</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link active" aria-current="page" href="#" onclick="Home()">Home</a>
+                            <a class="nav-link" href="#">Profile</a>
+                        </div>
+                        <div class="d-flex w-100 justify-content-end " id="login-div">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#login-modal"
+                                class="btn btn-outline-secondary  mx-2" id="login-btn">Login</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#Register-modal"
+                                class="btn btn-outline-secondary  mx-2" id="login-btn">Register</button>
+                        </div>
+
+                        <div class="d-flex w-100 justify-content-end align-items-center " id="logout-div">
+                            <img src="" alt="" class="rounded-circle border border-3"
+                                style="width: 50px; height: 50px; " id="user-image">
+                            <h1 class="d-inline fs-4" id="userName"></h1>
+                            <button onclick="logout()" type="button" class="btn btn-outline-danger mx-2"
+                                id="login-btn">Logout</button>
+                        </div>
+
+
+            </nav>
+        </div>
+    </div>
+    <!-- /Nav Bar -->
+
+    <!---------------------- Content -------------------->
+    <div class="container col-7 ">
+        <div id="posts">
+
+        </div>
+    </div>
+    <!---------------------- Content --------------------->
+
+
+    <!-- ================= addNewPost ================ -->
+    <button data-bs-toggle="modal" data-bs-target="#newPost-modal"
+        style="  border-radius: 50%; bottom: 0;position: fixed; margin: 33px; right: 0; background:   linear-gradient(#321679 0 0), linear-gradient(#321078 0 0),;"
+        id="creatPost-btn">
+        <div style=" width: 37px;height: 43px;
+        
+                 background:
+                      linear-gradient(#321679 0 0),
+                      linear-gradient(#321078 0 0),
+                      #000;
+                    background-position:center;
+                    background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+                    background-repeat:no-repeat;
+      
+      
+                    background:
+                      linear-gradient(#490768 0 0),
+                      linear-gradient(#4213b2 0 0);
+                    background-position:center;
+                    background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+                    background-repeat:no-repeat;
+      
+                    border-radius:50%;
+                ">
+
+
+
+    </button>
+
+
+    <script src="./MainLogic.js"></script>
+
+
+</body>
+
+<script>
+    // handle scrolling //
+    let currentPage = 1
+    let lastPage = 1
+    window.addEventListener("scroll", () => {
+
+        const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+
+        console.log(currentPage, lastPage)
+        if (endOfPage && currentPage < lastPage) {
+
+            currentPage = currentPage + 1
+
+            getPost(currentPage)
+
+
+        }
+    });
+    // handle scrolling //
+
+    function postClicked(postId){
+
+        window.location = `Post.html?POST=${postId}`
+        
+    }
+   
+    getPost()
+    homeUI()
+    getName()
+
+
+</script>
+
+</html>
