@@ -24,7 +24,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Creat aNew Post</h1>
+                    <h1 class="modal-title fs-5" id="modal-post-title">Creat aNew Post</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -32,6 +32,7 @@
                         <div class="mb-3">
                             <label for="Title" class="col-form-label">Title</label>
                             <input type="text" class="form-control" id="Title" value="Mego">
+                            <input type="hidden" value="" id="post-id-input">
                         </div>
                         <div class="mb-3">
                             <textarea id="postContent" cols="60" rows="2"></textarea>
@@ -46,7 +47,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
-                    <button type="button" class="btn btn-primary" onclick="createNewPost()">Post</button>
+                    <button type="button" class="btn btn-primary" id="post-btn" onclick="createNewPost()">Post</button>
                 </div>
             </div>
         </div>
@@ -174,14 +175,13 @@
     <!---------------------- Content -------------------->
     <div class="container col-7 ">
         <div id="posts">
-
         </div>
     </div>
     <!---------------------- Content --------------------->
 
 
     <!-- ================= addNewPost ================ -->
-    <button data-bs-toggle="modal" data-bs-target="#newPost-modal"
+    <button onclick="createNewPostBtn()"
         style="  border-radius: 50%; bottom: 0;position: fixed; margin: 33px; right: 0; background:   linear-gradient(#321679 0 0), linear-gradient(#321078 0 0),;"
         id="creatPost-btn">
         <div style=" width: 37px;height: 43px;
@@ -211,39 +211,16 @@
 
 
     <script src="./MainLogic.js"></script>
+    <script src="./homeScribt.js"></script>
 
 
 </body>
 
 <script>
-    // handle scrolling //
-    let currentPage = 1
-    let lastPage = 1
-    window.addEventListener("scroll", () => {
 
-        const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
-
-        console.log(currentPage, lastPage)
-        if (endOfPage && currentPage < lastPage) {
-
-            currentPage = currentPage + 1
-
-            getPost(currentPage)
-
-
-        }
-    });
-    // handle scrolling //
-
-    function postClicked(postId){
-
-        window.location = `Post.html?POST=${postId}`
-        
-    }
-   
     getPost()
     homeUI()
-    getName()
+    // getCurrentUser()
 
 
 </script>
