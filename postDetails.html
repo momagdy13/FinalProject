@@ -148,7 +148,7 @@
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
                             <a class="nav-link active" aria-current="page" href="#" onclick="Home()">Home</a>
-                            <a class="nav-link" href="#">Profile</a>
+                            <a class="nav-link" href="#"  onclick="Profile()">Profile</a>
                         </div>
                         <div class="d-flex w-100 justify-content-end " id="login-div">
                             <button type="button" data-bs-toggle="modal" data-bs-target="#login-modal"
@@ -194,12 +194,7 @@
     const url = new URLSearchParams(window.location.search)
     let postId = url.get("POST")
 
-
-
-    function getPost() {
-
-
-
+    function getSpacificPost() {
         axios.get(`https://tarmeezacademy.com/api/v1/posts/${postId}`)
             .then((response) => {
                 let post = response.data.data
@@ -331,7 +326,7 @@
     }
 
 
-    getPost()
+    getSpacificPost()
     homeUI()
 
 </script>
