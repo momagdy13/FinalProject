@@ -16,6 +16,64 @@
 </head>
 
 <body>
+    <!-- ======== deletePost Modal =========== -->
+
+    <div class="modal fade" id="deletePost-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-post-title">Are You Sure You Want To Delete This Post?</h1>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                    <button type="button" class="btn btn-danger"  id="post-btn" onclick="deletePost()">Yes,
+                        Delete</button>
+                </div>
+
+                <input type="hidden" value="" id="post-id">
+            </div>
+        </div>
+    </div>
+    <!-- ======== //deletePost Modal //=========== -->
+
+
+    <!-- ======== newPost Modal =========== -->
+
+    <div class="modal fade" id="new-Post-modal" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="Modal-post-title">Creat A New Post</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="Title" class="col-form-label">Title</label>
+                            <input type="text" class="form-control" id="Title" value="Mego">
+                            <input type="hidden" value="" id="post-id-input">
+                        </div>
+                        <div class="mb-3">
+                            <textarea id="postContent" cols="60" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="col-form-label">image</label>
+                            <input type="file" class="form-control" id="Image"></input>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                    <button type="button" class="btn btn-primary" id="Post-btn" onclick="createNewPost()">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ======== //newPost Modal //=========== -->
+
     <!-- ======== LogIn Modal =========== -->
 
     <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -111,7 +169,7 @@
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
                             <a class="nav-link active" aria-current="page" href="#" onclick="Home()">Home</a>
-                            <a class="nav-link" href="#"  onclick="Profile()">Profile</a>
+                            <a class="nav-link" href="#" onclick="Profile()">Profile</a>
                         </div>
                         <div class="d-flex w-100 justify-content-end " id="login-div">
                             <button type="button" data-bs-toggle="modal" data-bs-target="#login-modal"
@@ -134,64 +192,105 @@
     </div>
     <!-- /Nav Bar -->
 
-    <!---------------------- Content -------------------->
+    <!---------------------- UserInfo  & posts-------------------->
     <div class="container col-9 ">
         <div id="posts">
+
             <div class="card shadow p-3 my-5 ">
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-4">
-                            <img src="${post.image}" alt="" class="rounded-circle border border-3 "
-                                style="width: 100px; height: 100px;">
+                            <img src="" alt="" class="rounded-circle border border-3 "
+                                style="width: 100px; height: 100px;" id="profile-image">
                         </div>
                         <!-- email name username //  -->
-                        <div class="col-4">
-                            <div id="email" class="fs-3"
+                        <div class="col-6" id="main-info">
+                            <div id="main-info-email" class="fs-3"
                                 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-                                mego
+
                             </div>
-                            <div id="name" class="fs-3"
+                            <div id="main-info-name" class="fs-3"
                                 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-                                mego
+
                             </div>
-                            <div id="username" class="fs-3"
+                            <div id="main-info-username" class="fs-3"
                                 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-                                mego
+
                             </div>
                         </div>
                         <!-- email name username //  -->
 
                         <!-- comment No-Posts -->
                         <div class="col-4">
-                            <div id="comment" class="fs-1"
+                            <span id="no-comment" class="fs-1"
                                 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-                                5 <span style="font-size: 23px; color: darkgrey;">
-                                    comment
+                                
+                            </span>
+                            <span style="font-size: 23px; color: darkgrey;">
+                                comment
+                            </span>
+                            <div>
+                                <span id="no-posts" class="fs-1"
+                                    style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                                    
                                 </span>
-                            </div>
-                            <div id="posts" class="fs-1"
-                                style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-                                5 <span style="font-size: 23px; color: darkgrey;">
+                                <span style="font-size: 23px; color: darkgrey;">
                                     posts
                                 </span>
                             </div>
-
                         </div>
+
                     </div>
 
                 </div>
 
             </div>
+            <div class="container col-12">
+                <h1 class="fs-1" id="user-name"> </h1>
+            </div>
         </div>
     </div>
-    <!---------------------- Content --------------------->
+    <!---------------------- UserInfo // --------------------->
+
+    <!-- ================= addNewPostBtn ================ -->
+    <button onclick="createNewPostClicked()"
+        style="  border-radius: 50%; bottom: 0;position: fixed; margin: 33px; right: 0; background:   linear-gradient(#321679 0 0), linear-gradient(#321078 0 0),;"
+        id="creatPost-btn">
+        <div style=" width: 37px;height: 43px;
+     
+              background:
+                   linear-gradient(#321679 0 0),
+                   linear-gradient(#321078 0 0),
+                   #000;
+                 background-position:center;
+                 background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+                 background-repeat:no-repeat;
+   
+   
+                 background:
+                   linear-gradient(#490768 0 0),
+                   linear-gradient(#4213b2 0 0);
+                 background-position:center;
+                 background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+                 background-repeat:no-repeat;
+   
+                 border-radius:50%;
+             ">
+
+
+
+    </button>
+    <!-- ================= addNewPostBtn ================ -->
 
 
 </body>
 <script src="./MainLogic.js"></script>
 <script src="./profileScripts.js"></script>
 <script>
-
+    getCurrentUserId()
+    getPosts()
+    getUser()
+    homeUI()
 </script>
 
 </html>
