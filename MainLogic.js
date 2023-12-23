@@ -56,7 +56,7 @@ function createNewPost() {
             getPosts()
         }).catch(error => {
 
-            showAlerts(erroe.response.data.message, "danger")
+            showAlerts(error.message, "danger")
         }).finally(() => {
             toggleLoder(false)
         })
@@ -100,6 +100,8 @@ function homeUI() {
 
 }
 function showAlerts(messagealert, Type) {
+
+
     const alertPlaceholder = document.getElementById("alert")
     const appendAlert = (message, type) => {
         const wrapper = document.createElement('div')
@@ -112,13 +114,17 @@ function showAlerts(messagealert, Type) {
 
         alertPlaceholder.append(wrapper)
     }
-    appendAlert(messagealert, 'success')
-    //TODO setTimeout(() => {
+    appendAlert(messagealert, Type)
 
-    //     const alert = bootstrap.Alert.getOrCreateInstance('#success-alert')
-    //     alert.close()
-    // }, 3000)
-
+    function TriggerAlertClose() {
+        setTimeout(function () {
+            var alertList = document.querySelectorAll('#alert');
+            alertList.forEach(function (alertNode) {
+                bootstrap.Alert.getOrCreateInstance(alertNode).close();
+            })
+        }, 3000)
+    }
+    // TriggerAlertClose()
 }
 function registerNewUser() {
 
@@ -154,7 +160,7 @@ function registerNewUser() {
             showAlerts("Register In Successfully!", "success")
             homeUI()
         }).catch(erroe => {
-            showAlerts(erroe.response.data.message, "danger")
+            showAlerts(error.message, "danger")
         }).finally(() => {
             toggleLoder(false)
         })
@@ -189,7 +195,7 @@ function Login() {
             homeUI()
 
         }).catch(error => {
-            showAlerts(erroe.response.data.message, "danger")
+            showAlerts(error.message, "danger")
         }).finally(() => {
             toggleLoder(false)
 
@@ -345,7 +351,7 @@ function deletePost() {
 
 
         }).catch(error => {
-            showAlerts(erroe.response.data.message, "danger")
+            showAlerts(error.message, "danger")
         })
 
 
